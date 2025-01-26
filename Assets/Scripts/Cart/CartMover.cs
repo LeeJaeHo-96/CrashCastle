@@ -16,6 +16,11 @@ public class CartMover : MonoBehaviour
         Init();
     }
 
+    private void Start()
+    {
+        moveSpeed = 3f;
+    }
+
     private void Update()
     {
         rigid.velocity = Vector3.forward * moveSpeed;
