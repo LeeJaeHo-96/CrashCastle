@@ -12,4 +12,5 @@ public class Tag
     public static string Player = "Player";
     public static string GameController = "GameController";
     public static string Enemy = "Enemy";
+    public static string Factory = "Factory";
 }

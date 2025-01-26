@@ -4,18 +4,11 @@ using UnityEngine;
 
 public class CartLevel3 : CartMover
 {
-    private void OnTriggerEnter(Collider other)
+    protected override IEnumerator ReMoveRoutine()
     {
-        if (other != null)
-            moveSpeed = 0f;
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other != null)
-        {
-            moveSpeed = 5f;
-            rigid.AddForce(rigid.velocity, ForceMode.Impulse);
-        }
+        yield return new WaitForSeconds(2f);
+        if (CartMoveCo == null)
+            CartMoveCo = StartCoroutine(CartMoveRoutine());
+        ReMoveCo = null;
     }
 }

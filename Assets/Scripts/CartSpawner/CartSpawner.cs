@@ -13,28 +13,70 @@ public class CartSpawner : MonoBehaviour
 
     [SerializeField] Button makedButton;
 
-    GameObject cart;
+    [SerializeField] GameObject cart;
     Coroutine cartOnCo;
+
+    //카트 생성 체크용
+    public GameObject makedCart;
     public void Awake()
     {
         Init();
     }
 
-    public void MakeCart()
+
+    /// <summary>
+    /// 버튼용 _ 카트 업그레이드
+    /// </summary>
+    public void CartUpgrade()
     {
-        Debug.Log("카트 생성");
-        GameObject makedCart = Instantiate(cart, cartSpawner, Quaternion.identity);
-        Rigidbody rigid = makedCart.GetComponent<Rigidbody>();
-
-        rigid.velocity = Vector3.down * 10f;
-        rigid.AddForce(rigid.velocity, ForceMode.Impulse);
-
-        if (cartOnCo == null)
+        if (cart == cartLevel1)
         {
-            StartCoroutine(CartOnRoutine(makedCart));
+            if (GameManager.instance.gold >= 500)
+            {
+                GameManager.instance.gold -= 500;
+                cart = cartLevel2;
+            }
+        }
+        else if (cart == cartLevel2)
+        {
+            if (GameManager.instance.gold >= 1000)
+            {
+                GameManager.instance.gold -= 1000;
+                cart = cartLevel3;
+            }
         }
     }
 
+    /// <summary>
+    /// 카트 생성해주는 메서드
+    /// </summary>
+    public void MakeCart()
+    {
+        if (makedCart == null)
+        {
+            makedCart = Instantiate(cart, cartSpawner, Quaternion.identity);
+            Rigidbody rigid = makedCart.GetComponent<Rigidbody>();
+
+            rigid.velocity = Vector3.down * 10f;
+            rigid.AddForce(rigid.velocity, ForceMode.Impulse);
+
+            if (cartOnCo == null)
+            {
+                StartCoroutine(CartOnRoutine(makedCart));
+            }
+        }
+        else
+        {
+            //Todo : 텍스트 구현
+            Debug.Log("이미 충차가 있습니다.");
+        }
+    }
+
+    /// <summary>
+    /// 카트가 낙하하면 스크립트 켜주는 코루틴
+    /// </summary>
+    /// <param name="makedCart">생성된 카트</param>
+    /// <returns></returns>
     IEnumerator CartOnRoutine(GameObject makedCart)
     {
         yield return new WaitForSeconds(1f);
@@ -54,7 +96,6 @@ public class CartSpawner : MonoBehaviour
     void Init()
     {
         cartSpawner = transform.position;
-        cart = cartLevel1;
 
         makedButton.onClick.AddListener(MakeCart);
     }

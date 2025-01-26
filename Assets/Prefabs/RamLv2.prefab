@@ -429,7 +429,7 @@ GameObject:
   - component: {fileID: 902730794130561637}
   m_Layer: 0
   m_Name: RamLv2
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
