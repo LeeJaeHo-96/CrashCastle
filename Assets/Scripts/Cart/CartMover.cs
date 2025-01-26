@@ -16,6 +16,11 @@ public class CartMover : MonoBehaviour
     protected Coroutine CartMoveCo;
     protected Coroutine ReMoveCo;
 
+    //Ä«Æ® ½ºÅÈ
+    public int cartHP;
+    public int cartAttack;
+    public int cartArmor;
+
     private void Awake()
     {
         Init();
@@ -30,6 +35,12 @@ public class CartMover : MonoBehaviour
     {
         if (CartMoveCo == null)
             CartMoveCo = StartCoroutine(CartMoveRoutine());
+    }
+
+    protected void Update()
+    {
+        if(cartHP == 0)
+            gameObject.SetActive(false);
     }
 
 
