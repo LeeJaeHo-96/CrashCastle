@@ -8,9 +8,9 @@ public class CartMover : MonoBehaviour
     GameObject startPoint;
     GameObject endPoint;
 
-    Rigidbody rigid;
+    protected Rigidbody rigid;
 
-    [SerializeField] float moveSpeed = 3f;
+    [SerializeField] protected float moveSpeed;
     private void Awake()
     {
         Init();
@@ -24,20 +24,7 @@ public class CartMover : MonoBehaviour
         rigid.AddForce(rigid.velocity, ForceMode.Acceleration);
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other != null)
-            moveSpeed = 0f;
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other != null)
-        {
-            moveSpeed = 5f;
-            rigid.AddForce(rigid.velocity, ForceMode.Impulse);
-        }
-    }
+    
 
 
 
