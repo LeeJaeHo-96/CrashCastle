@@ -2,14 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Archer : MonoBehaviour
+public class ArcherRight : MonoBehaviour
 {
-    int archerHP;
+    public int archerHP;
 
     Animation Animation;
     Animator animator;
 
     Coroutine shootCo;
+
+    [SerializeField] ArrowPoolRight arrowPool;
+
+    [SerializeField] GameObject archerPoint;
 
     private void Awake()
     {
@@ -24,28 +28,23 @@ public class Archer : MonoBehaviour
     {
         if (other.CompareTag(Tag.Player))
         {
-            StartCoroutine(ShootRoutine(other.gameObject));
+            shootCo = StartCoroutine(ShootRoutine(other.gameObject));
             animator.SetBool("Attack", true);
-            StartCoroutine(StopShoot(other.gameObject));
         }
     }
 
-    IEnumerator StopShoot(GameObject player)
-    {
-        while (true)
-        {
-            
-        }
-    }
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag(Tag.Player))
         {
-            Debug.Log("³ª°¬À½");
-            animator.SetBool("Attack", false);
-            StopCoroutine(shootCo);
-            shootCo = null;
+            Debug.Log("½ÇÇàµÊ");
+            if (other.gameObject.GetComponent<CartMover>().cartHP <= 0)
+            {
+                Debug.Log("Á×¾úÀ½");
+                animator.SetBool("Attack", false);
+                StopCoroutine(shootCo);
+            }
         }
     }
 
@@ -53,19 +52,16 @@ public class Archer : MonoBehaviour
     {
         while (true)
         {
-            cart.GetComponent<CartMover>().cartHP -= 1;
+            GameObject arrow = arrowPool.GetArrow();
+            arrow.transform.position = archerPoint.transform.position;
             yield return new WaitForSeconds(4f);
             
         }
     }
 
-    
-
-    // Update is called once per frame
     void Update()
     {
         Die();
-        Physics.OverlapSphere(transform.position, gameObject.GetComponent<SphereCollider>().radius);
     }
 
     void Die()

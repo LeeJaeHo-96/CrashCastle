@@ -22,6 +22,6 @@ public class Textdelete : MonoBehaviour
             gameObject.GetComponent<TMP_Text>().color = color;
             yield return new WaitForSeconds(0.1f);
         }
-        Destroy(gameObject);
+       gameObject.SetActive(false);
     }
 }
