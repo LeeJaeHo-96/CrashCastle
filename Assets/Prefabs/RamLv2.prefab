@@ -427,7 +427,7 @@ GameObject:
   - component: {fileID: -8080342040745593690}
   - component: {fileID: 2612747156107831998}
   - component: {fileID: 902730794130561637}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: RamLv2
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -485,6 +485,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 0
+  cartHP: 0
+  cartAttack: 0
+  cartArmor: 0
 --- !u!54 &2612747156107831998
 Rigidbody:
   m_ObjectHideFlags: 0

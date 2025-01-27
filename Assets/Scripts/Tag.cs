@@ -14,3 +14,4 @@ public class Tag
     public static string Enemy = "Enemy";
     public static string Factory = "Factory";
 }
+

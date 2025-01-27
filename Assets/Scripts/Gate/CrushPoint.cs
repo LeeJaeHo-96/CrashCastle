@@ -9,7 +9,7 @@ public class CrushPoint : MonoBehaviour
 
     private void Start()
     {
-        gateHP = 1;
+        gateHP = 10;
     }
 
     private void Update()

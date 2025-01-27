@@ -11,6 +11,8 @@ public class CartSpawner : MonoBehaviour
     [SerializeField] GameObject cartLevel2;
     [SerializeField] GameObject cartLevel3;
 
+    [SerializeField] Slider cartMakeBar;
+
     [SerializeField] Button makedButton;
 
     [SerializeField] GameObject cart;
@@ -48,10 +50,23 @@ public class CartSpawner : MonoBehaviour
     }
 
     /// <summary>
-    /// 카트 생성해주는 메서드
+    /// 카트 생성해주는 코루틴
     /// </summary>
-    public void MakeCart()
+    public IEnumerator MakeCart()
     {
+        if (makedCart != null)
+        {
+            //Todo : 텍스트 구현
+            Debug.Log("이미 충차가 있습니다.");
+            StopCoroutine("MakeCart");
+        }
+
+        yield return new WaitForSeconds(3f);
+
+
+        cartMakeBar.gameObject.SetActive(false);
+
+        //충차 생산
         if (makedCart == null)
         {
             makedCart = Instantiate(cart, cartSpawner, Quaternion.identity);
@@ -65,10 +80,30 @@ public class CartSpawner : MonoBehaviour
                 StartCoroutine(CartOnRoutine(makedCart));
             }
         }
-        else
+    }
+
+    /// <summary>
+    /// 충차 생산 바 채워주는 코루틴
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerator CartMakeBarRoutine()
+    {
+        if (makedCart != null)
         {
             //Todo : 텍스트 구현
             Debug.Log("이미 충차가 있습니다.");
+            StopCoroutine("CartMakeBarRoutine");
+        }
+
+        if ( makedCart == null)
+        {
+            cartMakeBar.value = 0;
+            cartMakeBar.gameObject.SetActive(true);
+            while (cartMakeBar.value < 1)
+            {
+                cartMakeBar.value += 0.03f;
+                yield return new WaitForSeconds(0.1f);
+            }
         }
     }
 
@@ -97,6 +132,12 @@ public class CartSpawner : MonoBehaviour
     {
         cartSpawner = transform.position;
 
-        makedButton.onClick.AddListener(MakeCart);
+        makedButton.onClick.AddListener
+        (() =>
+            {
+                StartCoroutine(MakeCart());
+                StartCoroutine(CartMakeBarRoutine());
+            }
+        );
     }
 }

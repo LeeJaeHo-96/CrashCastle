@@ -10,26 +10,65 @@ public class GameManager : MonoBehaviour
     [SerializeField] public int gold;
 
     [SerializeField] TMP_Text haveGold;
+    [SerializeField] TMP_Text curTimer;
+    [SerializeField] TMP_Text result;
+
+    public int timer;
 
     private void Awake()
     {
-        if (instance == null)
-            instance = this;
-
-        else if(instance != this)
-            Destroy(instance);
-        
-        DontDestroyOnLoad(gameObject);
+        SingletonInit();
+        Init();
     }
     // Start is called before the first frame update
     void Start()
     {
-
+        StartCoroutine(TimerRoutine());
     }
 
     // Update is called once per frame
     void Update()
     {
+        UpdateInfo();
+    }
+
+    IEnumerator TimerRoutine()
+    {
+        while (true)
+        {
+            timer--;
+            yield return new WaitForSeconds(1f);
+        }
+    }
+
+    void UpdateInfo()
+    {
         haveGold.text = $"골드 : {gold}";
+        curTimer.text = $"남은 시간 : {timer}";
+
+        if (timer == 0)
+        {
+            StopAllCoroutines();
+            result.text = "성문을 파괴하지 못하고 전멸하였습니다.. 패배..";
+            result.gameObject.SetActive(true);
+            //Todo: 게임 패배
+        }
+    }
+
+    void SingletonInit()
+    {
+        if (instance == null)
+            instance = this;
+
+        else if (instance != this)
+            Destroy(instance);
+
+        DontDestroyOnLoad(gameObject);
+    }
+
+    void Init()
+    {
+        gold = 0;
+        timer = 60;
     }
 }
