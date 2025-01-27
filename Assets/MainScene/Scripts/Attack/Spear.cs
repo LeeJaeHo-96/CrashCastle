@@ -8,10 +8,8 @@ public class Spear : MonoBehaviour
     {
         if (collision.gameObject.CompareTag(Tag.Enemy))
         {
-            Debug.Log("피안달았음");
             if (collision.gameObject.GetComponent<ArcherLeft>() != null)
             {
-                Debug.Log("피달았음");
                 collision.gameObject.GetComponent<ArcherLeft>().archerHP--;
             }
             else if (collision.gameObject.GetComponent<ArcherRight>() != null)
