@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -49,7 +51,7 @@ public class GameManager : MonoBehaviour
         if (timer == 0)
         {
             StopAllCoroutines();
-            result.text = "성문을 파괴하지 못하고 전멸하였습니다.. 패배..";
+            result.text = "성문을 파괴하지 못하고 전멸하였습니다.. 패배.. \n 'E' 버튼을 눌러 메인화면으로 돌아가세요..";
             result.gameObject.SetActive(true);
             //Todo: 게임 패배
         }
@@ -66,9 +68,20 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    void OnFire(InputAction.CallbackContext context)
+    {
+        if ((result.gameObject.activeSelf))
+        {
+            if (context.performed)
+            {
+                SceneManager.LoadScene(Scene.MainScene);
+            }
+        }
+    }
+
     void Init()
     {
         gold = 0;
-        timer = 60;
+        timer = 100;
     }
 }

@@ -20,7 +20,7 @@ public class ArcherLeft : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    private void Start()
+    private void OnEnable()
     {
         archerHP = 3;
     }

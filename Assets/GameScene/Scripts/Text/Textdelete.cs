@@ -6,7 +6,7 @@ using UnityEngine;
 public class Textdelete : MonoBehaviour
 {
     Color color;
-    void Start()
+    void OnEnable()
     {
         StartCoroutine(DeleteRoutine());
     }
@@ -23,5 +23,8 @@ public class Textdelete : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
        gameObject.SetActive(false);
+        color = gameObject.GetComponent<TMP_Text>().color;
+        color.a = 1f;
+        gameObject.GetComponent<TMP_Text>().color = color;
     }
 }

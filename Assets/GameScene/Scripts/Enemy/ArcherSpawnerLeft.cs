@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class ArcherSpawner : MonoBehaviour
+public class ArcherSpawnerLeft : MonoBehaviour
 {
     GameObject archer;
     WaitForSeconds spawnCooldown;
@@ -17,11 +17,6 @@ public class ArcherSpawner : MonoBehaviour
     private void Start()
     {
         StartCoroutine(ArcherSpawn());
-    }
-
-    private void Update()
-    {
-
     }
 
     IEnumerator ArcherSpawn()
