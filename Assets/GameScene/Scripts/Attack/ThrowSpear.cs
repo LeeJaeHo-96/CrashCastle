@@ -33,7 +33,8 @@ public class ThrowSpear : MonoBehaviour
                         // 클릭한 위치에 창 생성
                         Vector3 spawnPosition = hit.point + Vector3.up * 10;
                         GameObject spear = Instantiate(spearPrefab, spawnPosition, Quaternion.identity);
-
+                        cooldown = 2;
+                        StartCoroutine(SpearRoutine());
                         // 중력을 이용해 떨어지게 설정
                         Rigidbody rb = spear.GetComponent<Rigidbody>();
                         if (rb == null)
@@ -46,8 +47,23 @@ public class ThrowSpear : MonoBehaviour
         }
     }
 
+    IEnumerator SpearRoutine()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(1f);
+            cooldown--;
+
+            if (cooldown <= 0)
+            {
+                StopCoroutine("SpearRoutine");
+                break;
+            }
+        }
+    }
+
     void Init()
     {
-        int cooldown = 0;
+        cooldown = 0;
     }
 }
