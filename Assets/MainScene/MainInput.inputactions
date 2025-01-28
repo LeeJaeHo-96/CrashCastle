@@ -35,17 +35,6 @@
             ],
             "bindings": [
                 {
-                    "name": "2D Vector",
-                    "id": "eb4a19ab-ab35-42aa-a794-af6eb7ef348d",
-                    "path": "2DVector",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Point",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
                     "name": "",
                     "id": "6f147195-e1ed-4c6f-9995-f95712072af9",
                     "path": "<Mouse>/{Point}",
@@ -132,17 +121,6 @@
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
-                },
-                {
-                    "name": "2D Vector",
-                    "id": "c26d0b7b-c54c-4ee7-8c56-a0d6fca7756b",
-                    "path": "2DVector",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": true,
-                    "isPartOfComposite": false
                 }
             ]
         }
