@@ -3380,7 +3380,7 @@ MonoBehaviour:
   m_ActionsAsset: {fileID: -944628639613478452, guid: d4ee19813472e7d43a22ff3b8214c927, type: 3}
   m_PointAction: {fileID: -145476395921183338, guid: d4ee19813472e7d43a22ff3b8214c927, type: 3}
   m_MoveAction: {fileID: -1630675146441414303, guid: d4ee19813472e7d43a22ff3b8214c927, type: 3}
-  m_SubmitAction: {fileID: 2512993363680342086, guid: d4ee19813472e7d43a22ff3b8214c927, type: 3}
+  m_SubmitAction: {fileID: 521116505835482725, guid: d4ee19813472e7d43a22ff3b8214c927, type: 3}
   m_CancelAction: {fileID: 0}
   m_LeftClickAction: {fileID: 2512993363680342086, guid: d4ee19813472e7d43a22ff3b8214c927, type: 3}
   m_MiddleClickAction: {fileID: 0}

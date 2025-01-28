@@ -24,7 +24,7 @@ public class MainUI : BaseUI
         Bind();
         Init();
     }
-    void Start()
+    void OnEnable()
     {
         EventSystem.current.SetSelectedGameObject(gameButton.gameObject);
     }
@@ -45,11 +45,6 @@ public class MainUI : BaseUI
         if(EventSystem.current.currentSelectedGameObject == null)
         {
             EventSystem.current.SetSelectedGameObject(lastButton.gameObject);
-
-            if(lastButton == null)
-            {
-                EventSystem.current.SetSelectedGameObject(gameButton.gameObject);
-            }
         }
     }
 

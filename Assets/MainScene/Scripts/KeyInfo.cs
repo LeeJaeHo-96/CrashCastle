@@ -10,10 +10,21 @@ public class KeyInfo : BaseUI
 
     [SerializeField] Canvas keyCanvas;
     [SerializeField] Canvas mainCanvas;
+
+    GameObject lastButton;
     private void Awake()
     {
         Bind();
         Init();
+    }
+    private void OnEnable()
+    {
+        EventSystem.current.SetSelectedGameObject(exitButton.gameObject);
+    }
+
+    private void Update()
+    {
+        NullClick();
     }
 
     void ExitButton()
@@ -22,12 +33,26 @@ public class KeyInfo : BaseUI
         keyCanvas.gameObject.SetActive(false);
     }
 
+    void NullClick()
+    {
+        if (EventSystem.current.currentSelectedGameObject != null)
+        {
+            lastButton = EventSystem.current.currentSelectedGameObject;
+        }
+
+        if (EventSystem.current.currentSelectedGameObject == null)
+        {
+            if (lastButton == null)
+                EventSystem.current.SetSelectedGameObject(exitButton.gameObject);
+            else
+            EventSystem.current.SetSelectedGameObject(lastButton.gameObject);
+        }
+    }
+
     void Init()
     {
         exitButton = GetUI<Button>("KeyExitButton");
 
         exitButton.onClick.AddListener(ExitButton);
-
-        EventSystem.current.SetSelectedGameObject(exitButton.gameObject);
     }
 }
