@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,6 +17,7 @@ public class CartSpawner : MonoBehaviour
     [SerializeField] Button makedButton;
 
     [SerializeField] GameObject cart;
+    [SerializeField] TMP_Text cartCostText;
     Coroutine cartOnCo;
 
     //카트 생성 체크용
@@ -37,6 +39,7 @@ public class CartSpawner : MonoBehaviour
             {
                 GameManager.instance.gold -= 500;
                 cart = cartLevel2;
+                cartCostText.text = "충차를 강화합니다.\n 비용 : 1000";
             }
         }
         else if (cart == cartLevel2)
@@ -45,6 +48,7 @@ public class CartSpawner : MonoBehaviour
             {
                 GameManager.instance.gold -= 1000;
                 cart = cartLevel3;
+                cartCostText.text = "충차를 강화합니다.\n 비용 : 1500";
             }
         }
     }

@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.UI;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     static public GameManager instance;
+    static public PlayerInput PlayerInput;
 
     [SerializeField] public int gold;
 
@@ -16,6 +18,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] TMP_Text result;
 
     public int timer;
+
+    [SerializeField] GameObject cam;
+    [SerializeField] GameObject pause;
 
     private void Awake()
     {
@@ -32,6 +37,8 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         UpdateInfo();
+        Debug.Log(PlayerInput.currentActionMap);
+
     }
 
     IEnumerator TimerRoutine()
@@ -57,6 +64,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void infoView()
+    {
+
+    }
+
     void SingletonInit()
     {
         if (instance == null)
@@ -79,9 +91,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void OnPause(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            pause.SetActive(!pause.activeSelf);
+        }
+    }
+
     void Init()
     {
         gold = 0;
         timer = 100;
+
+        PlayerInput = cam.GetComponent<PlayerInput>();
     }
 }
