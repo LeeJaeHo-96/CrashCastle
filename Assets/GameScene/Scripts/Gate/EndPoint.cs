@@ -8,6 +8,8 @@ public class EndPoint : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag(Tag.Player))
-            winText.SetActive(true);
+        {
+            GameManager.instance.GameWin();
+        }
     }
 }

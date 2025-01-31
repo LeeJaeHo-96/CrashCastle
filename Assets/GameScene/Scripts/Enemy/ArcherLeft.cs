@@ -68,6 +68,7 @@ public class ArcherLeft : MonoBehaviour
         if (archerHP <= 0)
         {
             animator.SetBool("Die", true);
+            GameManager.instance.diedEnemy++;
             gameObject.SetActive(false);
         }
     }

@@ -92,6 +92,10 @@ public class CartSpawner : MonoBehaviour
     /// <returns></returns>
     public IEnumerator CartMakeBarRoutine()
     {
+        //생성중일땐 동작 막아줌
+        if (cartMakeBar.gameObject.activeSelf)
+            yield break;
+
         if (makedCart != null)
         {
             //Todo : 텍스트 구현

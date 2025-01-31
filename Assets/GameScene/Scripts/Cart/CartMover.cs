@@ -82,6 +82,7 @@ public class CartMover : MonoBehaviour
         {
             // 문에 박을때마다 100골드 추가
             GameManager.instance.gold += 100;
+            GameManager.instance.attacked++;
             // 성문에 부딪혔을 때, 이동 코루틴을 멈추고 뒤로 후퇴 시킴
             StopCoroutine(CartMoveCo);
             CartMoveCo = null;

@@ -16,11 +16,20 @@ public class GameManager : MonoBehaviour
     [SerializeField] TMP_Text haveGold;
     [SerializeField] TMP_Text curTimer;
     [SerializeField] TMP_Text result;
+    [SerializeField] TMP_Text scoreText;
 
     public int timer;
 
     [SerializeField] GameObject cam;
     [SerializeField] GameObject pause;
+
+    //점수 관련
+    public int score;
+    public int diedEnemy;
+    public int attacked;
+    public int timerScore;
+
+    int totalScore;
 
     private void Awake()
     {
@@ -37,7 +46,6 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         UpdateInfo();
-        Debug.Log(PlayerInput.currentActionMap);
 
     }
 
@@ -58,15 +66,29 @@ public class GameManager : MonoBehaviour
         if (timer == 0)
         {
             StopAllCoroutines();
+            totalScore = ScoreCal();
+            scoreText.text = $"점수 : {totalScore}점";
+            scoreText.gameObject.SetActive(true);
             result.text = "성문을 파괴하지 못하고 전멸하였습니다.. 패배.. \n 'E' 버튼을 눌러 메인화면으로 돌아가세요..";
             result.gameObject.SetActive(true);
             //Todo: 게임 패배
         }
     }
 
-    void infoView()
+    public void GameWin()
     {
+        StopAllCoroutines();
+        totalScore = ScoreCal();
+        scoreText.text = $"점수 : {totalScore}점";
+        scoreText.gameObject.SetActive(true);
+        result.text = "성문이 열렸고 기사들이 돌진합니다.. 승리!!  \n 'E' 버튼을 눌러 메인화면으로 돌아가세요!";
+        result.gameObject.SetActive(true);
+    }
 
+    int ScoreCal()
+    {
+        // 죽인 적 수, 문을 공격한 타수, 남은 시간 비례로 점수 부여
+        return score = (diedEnemy * 100) + (attacked * 100) + (timer * 100);
     }
 
     void SingletonInit()
@@ -82,6 +104,8 @@ public class GameManager : MonoBehaviour
 
     public void OnFire(InputAction.CallbackContext context)
     {
+        if ((result == null))
+            return;
         if ((result.gameObject.activeSelf))
         {
             if (context.performed)
@@ -96,6 +120,11 @@ public class GameManager : MonoBehaviour
         if (context.performed)
         {
             pause.SetActive(!pause.activeSelf);
+            if (!pause.activeSelf)
+            {
+                GameManager.PlayerInput.SwitchCurrentActionMap(ActionMap.Cam);
+                Time.timeScale = 1f;
+            }
         }
     }
 
