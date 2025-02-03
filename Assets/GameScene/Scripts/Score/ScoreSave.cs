@@ -1,4 +1,5 @@
 using TMPro;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Zenject;
 
@@ -31,6 +32,7 @@ public class ScoreSave : BaseUI
     {
         saveName = saveNameField.text;
         firebaseManager.SaveScore(saveName, saveScore);
+        SceneManager.LoadScene(Scene.MainScene);
     }
 
     void Init()

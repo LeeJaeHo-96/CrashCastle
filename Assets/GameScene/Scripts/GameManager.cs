@@ -21,8 +21,8 @@ public class GameManager : MonoBehaviour
     public int timer;
 
     GameObject cam;
-    GameObject pause;
-    GameObject rankPanel;
+    [SerializeField] GameObject pause;
+    [SerializeField] GameObject rankPanel;
 
     //점수 관련
     public int score;
@@ -145,7 +145,5 @@ public class GameManager : MonoBehaviour
 
         cam = Camera.main.gameObject;
         PlayerInput = cam.GetComponent<PlayerInput>();
-        rankPanel = GameObject.FindGameObjectWithTag(Tag.GameController);
-        pause = GameObject.FindGameObjectWithTag(Tag.Ship);
     }
 }

@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 using Zenject;
 
 public class Rank : BaseUI
 {
     [Inject]
     FirebaseManager firebaseManager;
+
+    [SerializeField] GameObject mainCanvas;
 
     List<TMP_Text> rankList = new List<TMP_Text>();
 
@@ -17,14 +21,23 @@ public class Rank : BaseUI
         Init();
     }
 
-    private void Start()
+    private void OnEnable()
     {
         firebaseManager.LoadLeaderboard(rankList);
     }
 
-    private void OnEnable()
+    void Update()
     {
-        firebaseManager.LoadLeaderboard(rankList);
+        if (Keyboard.current.escapeKey.wasPressedThisFrame)
+        {
+            Close();
+        }
+    }
+
+    private void Close()
+    {
+        mainCanvas.SetActive(true);
+        gameObject.SetActive(false);
     }
 
 

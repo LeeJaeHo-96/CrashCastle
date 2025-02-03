@@ -1,13 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Zenject;
 
 public class MainUI : BaseUI
 {
+    [Inject]
+    FirebaseManager firebaseManager;
+
+
     Button gameButton;
     Button keyButton;
     Button rankingButton;

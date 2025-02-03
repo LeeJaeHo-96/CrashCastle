@@ -5491,6 +5491,8 @@ MonoBehaviour:
   result: {fileID: 463731369}
   scoreText: {fileID: 1712401069}
   timer: 0
+  pause: {fileID: 1482484406}
+  rankPanel: {fileID: 764050527}
   score: 0
   diedEnemy: 0
   attacked: 0

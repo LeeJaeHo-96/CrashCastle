@@ -14,18 +14,18 @@ public class FirebaseManager : MonoBehaviour
     int listNum;
     void Awake()
     {
-        //SingletonInit();
         Init();
     }
 
     public void SaveScore(string userId, int score)
     {
-        databaseReference.Child("users").Child(userId).Child("score").SetValueAsync(score)
+        databaseReference.Child("scores").Child(userId).SetValueAsync(score)
             .ContinueWithOnMainThread(task =>
             {
                 if (task.IsCompleted)
                 {
                     Debug.Log("점수 저장 성공!");
+                    Debug.Log((userId,score));
                 }
                 else
                 {
@@ -34,61 +34,37 @@ public class FirebaseManager : MonoBehaviour
             });
     }
 
-    public void LoadScore(string userId)
-    {
-        databaseReference.Child("users").Child(userId).Child("score").GetValueAsync()
-            .ContinueWithOnMainThread(task =>
-            {
-                if (task.IsCompleted)
-                {
-                    DataSnapshot snapshot = task.Result;
-                    if (snapshot.Exists)
-                    {
-                        int score = int.Parse(snapshot.Value.ToString());
-                        Debug.Log("불러온 점수: " + score);
-                    }
-                    else
-                    {
-                        Debug.Log("저장된 점수가 없습니다.");
-                    }
-                }
-                else
-                {
-                    Debug.LogError("데이터 불러오기 실패: " + task.Exception);
-                }
-            });
-    }
-
-    
     public void LoadLeaderboard(List<TMP_Text> rankList)
     {
-        databaseReference.Child("scores").OrderByValue().LimitToLast(5).GetValueAsync().ContinueWithOnMainThread(task => {
+        databaseReference.Child("scores").OrderByChild("score").LimitToLast(5).GetValueAsync().ContinueWithOnMainThread(task =>
+        {
             if (task.IsCompleted)
             {
+                Debug.Log("리더보드 불러오기 성공!");
                 DataSnapshot snapshot = task.Result;
+
+                List<string> leaderboardEntries = new List<string>();
+
                 foreach (DataSnapshot player in snapshot.Children)
                 {
                     string playerName = player.Key;
                     int score = int.Parse(player.Value.ToString());
-                    Debug.Log($"{playerName}: {score}");
-                    //텍스트 [int i].text = $"{playerName}: {score}";
-                    //i++
-                    rankList[listNum].text = $"{playerName} : {score}";
-                    listNum++;
+                    leaderboardEntries.Add($"이름: {playerName} /{score}점");
+                }
+
+                // ?? 가져온 리스트를 뒤집어서 (Reverse) 높은 점수가 위로 가게 만듦
+                leaderboardEntries.Reverse();
+
+                for (int i = 0; i < leaderboardEntries.Count && i < rankList.Count; i++)
+                {
+                    rankList[i].text = leaderboardEntries[i];
                 }
             }
+            else
+            {
+                Debug.LogError("리더보드 불러오기 실패: " + task.Exception);
+            }
         });
-    }
-
-    void SingletonInit()
-    {
-        if (instance == null)
-            instance = this;
-
-        else if (instance != this)
-            Destroy(instance);
-
-        DontDestroyOnLoad(gameObject);
     }
 
     void Init()

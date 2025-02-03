@@ -2720,6 +2720,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3181d65eaf570e45b4f87c636e56a6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCanvas: {fileID: 2123794798}
 --- !u!1 &999131325
 GameObject:
   m_ObjectHideFlags: 0
@@ -5475,7 +5476,7 @@ MonoBehaviour:
   m_PointAction: {fileID: -145476395921183338, guid: d4ee19813472e7d43a22ff3b8214c927, type: 3}
   m_MoveAction: {fileID: -1630675146441414303, guid: d4ee19813472e7d43a22ff3b8214c927, type: 3}
   m_SubmitAction: {fileID: 521116505835482725, guid: d4ee19813472e7d43a22ff3b8214c927, type: 3}
-  m_CancelAction: {fileID: 0}
+  m_CancelAction: {fileID: 378212002434912859, guid: d4ee19813472e7d43a22ff3b8214c927, type: 3}
   m_LeftClickAction: {fileID: 2512993363680342086, guid: d4ee19813472e7d43a22ff3b8214c927, type: 3}
   m_MiddleClickAction: {fileID: 0}
   m_RightClickAction: {fileID: 0}
@@ -6346,6 +6347,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38cae81510fca1240b49c54c8ed9b064, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rankList:
+  - {fileID: 999131327}
+  - {fileID: 1176731703}
+  - {fileID: 24551242}
+  - {fileID: 24656216}
+  - {fileID: 76491681}
   keyCanvas: {fileID: 480394257}
   rankingCanvas: {fileID: 996580517}
   mainCanvas: {fileID: 2123794801}
