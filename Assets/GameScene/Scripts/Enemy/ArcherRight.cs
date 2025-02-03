@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class ArcherRight : MonoBehaviour
 {
+    [Inject]
+    GameManager gameManager;
     public int archerHP;
 
     Animation Animation;
@@ -68,7 +71,8 @@ public class ArcherRight : MonoBehaviour
         if (archerHP <= 0)
         {
             animator.SetBool("Die", true);
-            GameManager.instance.diedEnemy++;
+            //GameManager.instance.diedEnemy++;
+            gameManager.diedEnemy++;
             gameObject.SetActive(false);
         }
     }

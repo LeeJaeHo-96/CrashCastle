@@ -20,8 +20,9 @@ public class GameManager : MonoBehaviour
 
     public int timer;
 
-    [SerializeField] GameObject cam;
-    [SerializeField] GameObject pause;
+    GameObject cam;
+    GameObject pause;
+    GameObject rankPanel;
 
     //점수 관련
     public int score;
@@ -29,11 +30,11 @@ public class GameManager : MonoBehaviour
     public int attacked;
     public int timerScore;
 
-    int totalScore;
+    public int totalScore;
 
     private void Awake()
     {
-        SingletonInit();
+        //SingletonInit();
         Init();
     }
     // Start is called before the first frame update
@@ -81,8 +82,8 @@ public class GameManager : MonoBehaviour
         totalScore = ScoreCal();
         scoreText.text = $"점수 : {totalScore}점";
         scoreText.gameObject.SetActive(true);
-        result.text = "성문이 열렸고 기사들이 돌진합니다.. 승리!!  \n 'E' 버튼을 눌러 메인화면으로 돌아가세요!";
-        result.gameObject.SetActive(true);
+        result.text = "성문이 열렸고 기사들이 돌진합니다.. 승리!!  \n 'E' 버튼을 눌러 점수를 저장하세요!";
+        rankPanel.gameObject.SetActive(true);
     }
 
     int ScoreCal()
@@ -106,6 +107,15 @@ public class GameManager : MonoBehaviour
     {
         if ((result == null))
             return;
+
+        if ((result.gameObject.activeSelf))
+        {
+            if (context.performed)
+            {
+                rankPanel.gameObject.SetActive(true);
+            }
+        }
+
         if ((result.gameObject.activeSelf))
         {
             if (context.performed)
@@ -133,6 +143,9 @@ public class GameManager : MonoBehaviour
         gold = 0;
         timer = 100;
 
+        cam = Camera.main.gameObject;
         PlayerInput = cam.GetComponent<PlayerInput>();
+        rankPanel = GameObject.FindGameObjectWithTag(Tag.GameController);
+        pause = GameObject.FindGameObjectWithTag(Tag.Ship);
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -9,15 +10,18 @@ public class MainUI : BaseUI
 {
     Button gameButton;
     Button keyButton;
+    Button rankingButton;
     Button exitButton;
 
     List<Button> buttonList = new List<Button>();
+    List<UnityAction> actionList = new List<UnityAction>();
 
     GameObject lastButton;
 
     Color highlightButton;
 
     [SerializeField] Canvas keyCanvas;
+    [SerializeField] Canvas rankingCanvas;
     [SerializeField] Canvas mainCanvas;
     private void Awake()
     {
@@ -80,6 +84,13 @@ public class MainUI : BaseUI
         mainCanvas.gameObject.SetActive(false);
     }
 
+    void RankingButton()
+    {
+        Debug.Log("·©Å· Å¬¸¯´ï");
+        rankingCanvas.gameObject.SetActive(true);
+        mainCanvas.gameObject.SetActive(false);
+    }
+
     void ExitButton()
     {
 #if UNITY_EDITOR
@@ -95,15 +106,23 @@ public class MainUI : BaseUI
     {
         gameButton = GetUI<Button>("gameButton");
         keyButton = GetUI<Button>("keyButton");
+        rankingButton = GetUI<Button>("rankingButton");
         exitButton = GetUI<Button>("exitButton");
 
         buttonList.Add(gameButton);
         buttonList.Add(keyButton);
+        buttonList.Add(rankingButton);
         buttonList.Add(exitButton);
 
-        gameButton.onClick.AddListener(GameButton);
-        keyButton.onClick.AddListener(KeyButton);
-        exitButton.onClick.AddListener(ExitButton);
+        actionList.Add(() => {GameButton();});
+        actionList.Add(() => {KeyButton();});
+        actionList.Add(() => {RankingButton();});
+        actionList.Add(() => {ExitButton();});
+
+        for (int i = 0; i < actionList.Count; i++)
+        {
+            buttonList[i].onClick.AddListener(actionList[i]);
+        }
 
     }
 }

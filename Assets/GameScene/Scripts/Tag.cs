@@ -13,5 +13,8 @@ public class Tag
     public static string GameController = "GameController";
     public static string Enemy = "Enemy";
     public static string Factory = "Factory";
+    public static string Ship = "ship";
+    public static string Asteroid = "asteroid";
+
 }
 

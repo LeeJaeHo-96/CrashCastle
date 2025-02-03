@@ -3,9 +3,16 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 public class CartSpawner : MonoBehaviour
 {
+    [Inject]
+    GameManager gameManager;
+
+    [Inject]
+    DiContainer container;
+
     [SerializeField] Vector3 cartSpawner;
 
     [SerializeField] GameObject cartLevel1;
@@ -27,7 +34,6 @@ public class CartSpawner : MonoBehaviour
         Init();
     }
 
-
     /// <summary>
     /// 버튼용 _ 카트 업그레이드
     /// </summary>
@@ -35,18 +41,32 @@ public class CartSpawner : MonoBehaviour
     {
         if (cart == cartLevel1)
         {
-            if (GameManager.instance.gold >= 500)
+          //  if (GameManager.instance.gold >= 500)
+          //  {
+          //      GameManager.instance.gold -= 500;
+          //      cart = cartLevel2;
+          //      cartCostText.text = "충차를 강화합니다.\n 비용 : 1000";
+          //  }
+
+            if (gameManager.gold >= 500)
             {
-                GameManager.instance.gold -= 500;
+                gameManager.gold -= 500;
                 cart = cartLevel2;
                 cartCostText.text = "충차를 강화합니다.\n 비용 : 1000";
             }
         }
         else if (cart == cartLevel2)
         {
-            if (GameManager.instance.gold >= 1000)
+           // if (GameManager.instance.gold >= 1000)
+           // {
+           //     GameManager.instance.gold -= 1000;
+           //     cart = cartLevel3;
+           //     cartCostText.text = "충차를 강화합니다.\n 비용 : 1500";
+           // }
+
+            if (gameManager.gold >= 1000)
             {
-                GameManager.instance.gold -= 1000;
+                gameManager.gold -= 1000;
                 cart = cartLevel3;
                 cartCostText.text = "충차를 강화합니다.\n 비용 : 1500";
             }
@@ -73,7 +93,8 @@ public class CartSpawner : MonoBehaviour
         //충차 생산
         if (makedCart == null)
         {
-            makedCart = Instantiate(cart, cartSpawner, Quaternion.identity);
+            //makedCart = Instantiate(cart, cartSpawner, Quaternion.identity);
+            makedCart = container.InstantiatePrefab(cart, cartSpawner, Quaternion.identity, null);
             Rigidbody rigid = makedCart.GetComponent<Rigidbody>();
 
             rigid.velocity = Vector3.down * 10f;

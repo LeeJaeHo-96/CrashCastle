@@ -8,9 +8,12 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Zenject;
 
 public class Pause : BaseUI
 {
+    [Inject]
+    GameManager gameManager;
     List<Button> buttons = new List<Button>();
     List<UnityAction> actions = new List<UnityAction>();
 
