@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class Setting : BaseUI
@@ -45,6 +46,33 @@ public class Setting : BaseUI
     {
         NullClick();
         ButtonHighlight();
+        SliderControl();
+    }
+
+    void SliderControl()
+    {
+        if (EventSystem.current.currentSelectedGameObject == soundButton.gameObject)
+        {
+            if(Keyboard.current.aKey.isPressed)
+            {
+                soundSlider.value -= 0.1f * Time.deltaTime * 3;
+            }
+            else if(Keyboard.current.dKey.isPressed)
+            {
+                soundSlider.value += 0.1f * Time.deltaTime * 3;
+            }
+        }
+        else if(EventSystem.current.currentSelectedGameObject == lightButton.gameObject)
+        {
+            if (Keyboard.current.aKey.isPressed)
+            {
+                lightSlider.value -= 0.1f * Time.deltaTime * 3;
+            }
+            else if (Keyboard.current.dKey.isPressed)
+            {
+                lightSlider.value += 0.1f * Time.deltaTime * 3;
+            }
+        }
     }
 
     void NullClick()
