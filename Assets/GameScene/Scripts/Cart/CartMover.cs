@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class CartMover : MonoBehaviour
 {
+    [Inject]
+    GameManager gameManager;
+
     CartSpawner factory;
     //시작점, 도착점
     GameObject startPoint;
@@ -81,7 +85,12 @@ public class CartMover : MonoBehaviour
         if (other.CompareTag(Tag.Finish))
         {
             // 문에 박을때마다 100골드 추가
-            GameManager.instance.gold += 100;
+            // GameManager.instance.gold += 100;
+            // GameManager.instance.attacked++;
+
+            Debug.Log($"카트에서 확인{gameManager}");
+            gameManager.gold += 100;
+            gameManager.attacked++;
             // 성문에 부딪혔을 때, 이동 코루틴을 멈추고 뒤로 후퇴 시킴
             StopCoroutine(CartMoveCo);
             CartMoveCo = null;

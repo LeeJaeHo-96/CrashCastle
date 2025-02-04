@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class CamController : MonoBehaviour
 {
@@ -10,6 +11,10 @@ public class CamController : MonoBehaviour
 
     [SerializeField] GameObject left;
     [SerializeField] GameObject right;
+
+    //버튼 보이기 제어용
+    [SerializeField] Button makeButton;
+    [SerializeField] Button upButton;
 
     GameObject cart;
 
@@ -83,6 +88,8 @@ public class CamController : MonoBehaviour
         {
             Camera.main.depth = 0;
         }
+        makeButton.gameObject.SetActive(!inputChange);
+        upButton.gameObject.SetActive(!inputChange);
     }
 
     public void OnMove(InputAction.CallbackContext context)

@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class CartLevel1 : CartMover
 {
+    [Inject]
+    GameManager gameManager;
     private void Start()
     {
         base.Start();
