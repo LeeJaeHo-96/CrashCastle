@@ -16,6 +16,7 @@ public class MainUI : BaseUI
 
     Button gameButton;
     Button keyButton;
+    Button optionButton;
     Button rankingButton;
     Button exitButton;
 
@@ -28,15 +29,23 @@ public class MainUI : BaseUI
 
     [SerializeField] Canvas keyCanvas;
     [SerializeField] Canvas rankingCanvas;
+    [SerializeField] Canvas optionCanvas;
     [SerializeField] Canvas mainCanvas;
+
+    [SerializeField] Setting setting;
     private void Awake()
     {
         Bind();
         Init();
     }
+    private void Start()
+    {
+        setting.OptionLoad();
+    }
     void OnEnable()
     {
         EventSystem.current.SetSelectedGameObject(gameButton.gameObject);
+        
     }
 
     void Update()
@@ -90,6 +99,12 @@ public class MainUI : BaseUI
         mainCanvas.gameObject.SetActive(false);
     }
 
+    void OptionButton()
+    {
+        optionCanvas.gameObject.SetActive(true);
+        mainCanvas.gameObject.SetActive(false);
+    }
+
     void RankingButton()
     {
         Debug.Log("·©Å· Å¬¸¯´ï");
@@ -112,16 +127,19 @@ public class MainUI : BaseUI
     {
         gameButton = GetUI<Button>("gameButton");
         keyButton = GetUI<Button>("keyButton");
+        optionButton = GetUI<Button>("optionButton");
         rankingButton = GetUI<Button>("rankingButton");
         exitButton = GetUI<Button>("exitButton");
 
         buttonList.Add(gameButton);
         buttonList.Add(keyButton);
+        buttonList.Add(optionButton);
         buttonList.Add(rankingButton);
         buttonList.Add(exitButton);
 
         actionList.Add(() => {GameButton();});
         actionList.Add(() => {KeyButton();});
+        actionList.Add(() => {OptionButton();});
         actionList.Add(() => {RankingButton();});
         actionList.Add(() => {ExitButton();});
 

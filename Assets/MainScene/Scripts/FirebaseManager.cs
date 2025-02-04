@@ -19,6 +19,7 @@ public class FirebaseManager : MonoBehaviour
 
     public void SaveScore(string userId, int score)
     {
+        // userId/scores에 점수 저장
         databaseReference.Child("scores").Child(userId).SetValueAsync(score)
             .ContinueWithOnMainThread(task =>
             {
@@ -27,15 +28,12 @@ public class FirebaseManager : MonoBehaviour
                     Debug.Log("점수 저장 성공!");
                     Debug.Log((userId,score));
                 }
-                else
-                {
-                    Debug.LogError("점수 저장 실패: " + task.Exception);
-                }
             });
     }
 
     public void LoadLeaderboard(List<TMP_Text> rankList)
     {
+        //저장된 점수에서 5개만 추려내어 리스트에 넣어줌
         databaseReference.Child("scores").OrderByChild("score").LimitToLast(5).GetValueAsync().ContinueWithOnMainThread(task =>
         {
             if (task.IsCompleted)
@@ -52,17 +50,14 @@ public class FirebaseManager : MonoBehaviour
                     leaderboardEntries.Add($"이름: {playerName} /{score}점");
                 }
 
-                // ?? 가져온 리스트를 뒤집어서 (Reverse) 높은 점수가 위로 가게 만듦
+                // 가져온 리스트를 뒤집어서 높은 점수가 위로 가게 만듦
                 leaderboardEntries.Reverse();
 
+                //여기서 직접적으로 리스트에 넣어줌
                 for (int i = 0; i < leaderboardEntries.Count && i < rankList.Count; i++)
                 {
                     rankList[i].text = leaderboardEntries[i];
                 }
-            }
-            else
-            {
-                Debug.LogError("리더보드 불러오기 실패: " + task.Exception);
             }
         });
     }

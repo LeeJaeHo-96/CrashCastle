@@ -32,10 +32,17 @@ public class GameManager : MonoBehaviour
 
     public int totalScore;
 
+    [SerializeField] Setting setting;
+
     private void Awake()
     {
         //SingletonInit();
         Init();
+    }
+
+    private void OnEnable()
+    {
+        setting.OptionLoad();
     }
     // Start is called before the first frame update
     void Start()
