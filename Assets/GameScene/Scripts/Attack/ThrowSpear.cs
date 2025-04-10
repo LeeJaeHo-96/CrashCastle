@@ -8,6 +8,7 @@ public class ThrowSpear : MonoBehaviour
     [SerializeField] GameObject spearPrefab;
     //창던지기 전용 카메라
     [SerializeField] Camera spearCam;
+    [SerializeField] GameObject circle;
 
     int cooldown;
 
@@ -15,6 +16,7 @@ public class ThrowSpear : MonoBehaviour
     {
        Init();
     }
+
 
     public void OnFire(InputAction.CallbackContext context)
     {
@@ -43,6 +45,30 @@ public class ThrowSpear : MonoBehaviour
                         }
                     }
                 }
+            }
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (Camera.main != null && Camera.main.depth == 0)
+        {
+            Ray ray = spearCam.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                Vector3 spawnPosition = hit.point + Vector3.up * 10;
+
+                // 기즈모 색상 설정
+                Gizmos.color = Color.red;
+
+                // 창이 생성될 위치를 구체로 표시
+                Gizmos.DrawSphere(spawnPosition, 0.5f);
+
+                // 레이 방향을 선으로 표시
+                Gizmos.color = Color.yellow;
+                Gizmos.DrawLine(ray.origin, hit.point + Vector3.down * 15f);
             }
         }
     }

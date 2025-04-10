@@ -12,6 +12,8 @@ public class FirebaseManager : MonoBehaviour
     DatabaseReference databaseReference;
 
     int listNum;
+
+    Dictionary<string, object> userDict;
     void Awake()
     {
         Init();
@@ -19,47 +21,66 @@ public class FirebaseManager : MonoBehaviour
 
     public void SaveScore(string userId, int score)
     {
-        // userId/scores에 점수 저장
-        databaseReference.Child("scores").Child(userId).SetValueAsync(score)
+        // 사용자 데이터를 Dictionary로 저장
+        Dictionary<string, object> userData = new Dictionary<string, object>
+        {
+            { "id", userId },
+            { "score", score }
+        };
+
+        // 해당 사용자의 점수 업데이트
+        databaseReference.Child("scores").Child(userId).SetValueAsync(userData)
             .ContinueWithOnMainThread(task =>
             {
                 if (task.IsCompleted)
                 {
-                    Debug.Log("점수 저장 성공!");
-                    Debug.Log((userId,score));
+                    Debug.Log($"[ID: {userId}, 점수: {score}]");
                 }
             });
     }
 
     public void LoadLeaderboard(List<TMP_Text> rankList)
     {
-        //저장된 점수에서 5개만 추려내어 리스트에 넣어줌
-        databaseReference.Child("scores").OrderByChild("score").LimitToLast(5).GetValueAsync().ContinueWithOnMainThread(task =>
-        {
-            if (task.IsCompleted)
+        // 점수 기준으로 상위 5개 가져오기
+        databaseReference.Child("scores").OrderByChild("score").LimitToLast(5).GetValueAsync()
+            .ContinueWithOnMainThread(task =>
             {
-                Debug.Log("리더보드 불러오기 성공!");
-                DataSnapshot snapshot = task.Result;
-
-                List<string> leaderboardEntries = new List<string>();
-
-                foreach (DataSnapshot player in snapshot.Children)
+                if (task.IsCompleted)
                 {
-                    string playerName = player.Key;
-                    int score = int.Parse(player.Value.ToString());
-                    leaderboardEntries.Add($"이름: {playerName} /{score}점");
-                }
+                    DataSnapshot snapshot = task.Result;
 
-                // 가져온 리스트를 뒤집어서 높은 점수가 위로 가게 만듦
-                leaderboardEntries.Reverse();
+                    List<string> leaderboardEntries = new List<string>();
 
-                //여기서 직접적으로 리스트에 넣어줌
-                for (int i = 0; i < leaderboardEntries.Count && i < rankList.Count; i++)
-                {
-                    rankList[i].text = leaderboardEntries[i];
+                    foreach (DataSnapshot player in snapshot.Children)
+                    {
+                        string playerName = player.Child("id").Value.ToString();
+                        int score = int.Parse(player.Child("score").Value.ToString());
+
+                        leaderboardEntries.Add($"이름: {playerName} / {score}점");
+                    }
+
+                    // 점수가 높은 순서대로 정렬 (Firebase는 오름차순으로 반환)
+                    leaderboardEntries.Reverse();
+
+                    // UI 업데이트
+                    for (int i = 0; i < leaderboardEntries.Count && i < rankList.Count; i++)
+                    {
+                        rankList[i].text = leaderboardEntries[i];
+                    }
                 }
-            }
-        });
+            });
+    }
+        /// <summary>
+        /// 새 버젼 출시 랭킹 비우기용 함수(테스트용)
+        /// </summary>
+        public void RankReset(List<TMP_Text> rankList)
+    {
+        databaseReference.Child("scores").RemoveValueAsync();
+
+        foreach (var rank in rankList)
+        {
+            rank.text = " ";
+        }
     }
 
     void Init()

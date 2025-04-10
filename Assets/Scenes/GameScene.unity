@@ -2683,6 +2683,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cartSpawner: {x: 0, y: 0, z: 0}
+  carObjectDatas:
+  - {fileID: 11400000, guid: 4fa4b4ea112c11d418400e4a2c420837, type: 2}
+  - {fileID: 11400000, guid: 2f824e0b062773c44ae2d01b48b92ee6, type: 2}
+  - {fileID: 11400000, guid: a10e199b74ee5f64289c4fb7a24a3d87, type: 2}
   cartLevel1: {fileID: 245766619583876706, guid: 0488650d4a7370f4d8d415af02a0211d, type: 3}
   cartLevel2: {fileID: 3293027057698688732, guid: 9c452b13071b8c9419cdaf042aaa9681, type: 3}
   cartLevel3: {fileID: 5546294887355966664, guid: 4f074f0a522a5aa45a5d30b93996706c, type: 3}
@@ -3656,6 +3660,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spearPrefab: {fileID: 3194870514108689666, guid: 7c6a5d7dc4a1ec141bac64a4645af226, type: 3}
   spearCam: {fileID: 1272430296}
+  circle: {fileID: 0}
 --- !u!4 &457095847
 Transform:
   m_ObjectHideFlags: 0
@@ -4605,7 +4610,7 @@ Camera:
   field of view: 60
   orthographic: 1
   orthographic size: 8.12
-  m_Depth: 1
+  m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -10902,7 +10907,7 @@ Camera:
   field of view: 60
   orthographic: 1
   orthographic size: 8.12
-  m_Depth: -1
+  m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295

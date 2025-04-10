@@ -20,10 +20,11 @@ public class CartMover : MonoBehaviour
     protected Coroutine CartMoveCo;
     protected Coroutine ReMoveCo;
 
+    public CarObjectData CarObjectData;
     //카트 스탯
     public int cartHP;
     public int cartAttack;
-    public int cartArmor;
+
 
     private void Awake()
     {
@@ -74,7 +75,7 @@ public class CartMover : MonoBehaviour
     /// <returns></returns>
     protected virtual IEnumerator ReMoveRoutine()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(CarObjectData.reCharging);
         if (CartMoveCo == null)
             CartMoveCo = StartCoroutine(CartMoveRoutine());
         ReMoveCo = null;
@@ -84,11 +85,6 @@ public class CartMover : MonoBehaviour
     {
         if (other.CompareTag(Tag.Finish))
         {
-            // 문에 박을때마다 100골드 추가
-            // GameManager.instance.gold += 100;
-            // GameManager.instance.attacked++;
-
-            Debug.Log($"카트에서 확인{gameManager}");
             gameManager.gold += 100;
             gameManager.attacked++;
             // 성문에 부딪혔을 때, 이동 코루틴을 멈추고 뒤로 후퇴 시킴
@@ -113,5 +109,8 @@ public class CartMover : MonoBehaviour
         rigid = GetComponent<Rigidbody>();
 
         factory = GameObject.FindGameObjectWithTag(Tag.Factory).GetComponent<CartSpawner>();
+
+        cartHP = CarObjectData.cartHp;
+        cartAttack = CarObjectData.cartAttack;
     }
 }

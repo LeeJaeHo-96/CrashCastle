@@ -40,10 +40,8 @@ public class ArcherRight : MonoBehaviour
     {
         if (other.CompareTag(Tag.Player))
         {
-            Debug.Log("½ÇÇàµÊ");
             if (other.gameObject.GetComponent<CartMover>().cartHP <= 0)
             {
-                Debug.Log("Á×¾úÀ½");
                 animator.SetBool("Attack", false);
                 StopCoroutine(shootCo);
             }

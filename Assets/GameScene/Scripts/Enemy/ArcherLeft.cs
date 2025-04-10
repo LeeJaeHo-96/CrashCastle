@@ -51,7 +51,6 @@ public class ArcherLeft : MonoBehaviour
 
     IEnumerator ShootRoutine(GameObject cart)
     {
-        Debug.Log("코루틴 실행");
         while (true)
         {
             GameObject arrow = arrowPool.GetArrow();

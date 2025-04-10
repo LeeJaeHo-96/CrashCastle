@@ -124,8 +124,6 @@ public class Setting : BaseUI
         PlayerPrefs.SetFloat(soundKey, sound);
         PlayerPrefs.SetFloat(lightnessKey, lightness);
         PlayerPrefs.Save();
-        Debug.Log($"세이브 : 소리는 {sound}, 밝기는 {lightness}");
-        Debug.Log("옵션 세팅 저장");
     }
 
     // 옵션 세팅 수치 로드
@@ -133,18 +131,14 @@ public class Setting : BaseUI
     {
         if (!PlayerPrefs.HasKey(soundKey) || !PlayerPrefs.HasKey(lightnessKey))
         {
-            Debug.Log("기본 세팅 완료");
             OptionResetAll();
             return;
         }
-        Debug.Log("옵션 세팅 불러오기");
-        Debug.Log($"로드직전 : 소리는 {soundKey}, 밝기는 {lightnessKey}");
 
         sound = PlayerPrefs.GetFloat(soundKey);
         soundSlider.value = sound;
         lightness = PlayerPrefs.GetFloat(lightnessKey);
         lightSlider.value = lightness;
-        Debug.Log($"로드 : 소리는 {sound}, 밝기는 {lightness}");
     }
 
     void OptionResetAll()

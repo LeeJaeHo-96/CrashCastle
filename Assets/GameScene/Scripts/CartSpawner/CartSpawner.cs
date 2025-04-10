@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -15,9 +16,8 @@ public class CartSpawner : MonoBehaviour
 
     [SerializeField] Vector3 cartSpawner;
 
-    [SerializeField] GameObject cartLevel1;
-    [SerializeField] GameObject cartLevel2;
-    [SerializeField] GameObject cartLevel3;
+    [SerializeField] List<CarObjectData> carObjectDatas;
+
 
     [SerializeField] Slider cartMakeBar;
 
@@ -25,7 +25,6 @@ public class CartSpawner : MonoBehaviour
 
     [SerializeField] GameObject cart;
     [SerializeField] TMP_Text cartCostText;
-    Coroutine cartOnCo;
 
     //카트 생성 체크용
     public GameObject makedCart;
@@ -37,39 +36,40 @@ public class CartSpawner : MonoBehaviour
     /// <summary>
     /// 버튼용 _ 카트 업그레이드
     /// </summary>
+    public void CartUpgrade1()
+    {
+        //최종 레벨일 경우 리턴시킴
+        if (cart == carObjectDatas[carObjectDatas.Count - 1]) return;
+        
+        CarObjectData cartData1 = cart.GetComponent<CarObjectData>();
+        CarObjectData cartData = carObjectDatas[0];
+        
+        //보유 골드가 카트의 업그레이드 비용 이상일 때
+        if (gameManager.gold >= cartData.upgradeCost)
+        {
+            gameManager.gold -= cartData.upgradeCost;
+            cart = carObjectDatas[cartData.cartLevel].cartPrefab;
+            cartCostText.text = $"충차를 강화합니다.\n 비용 : {cart.GetComponent<CarObjectData>().upgradeCost}";
+        }
+    }
+
     public void CartUpgrade()
     {
-        if (cart == cartLevel1)
-        {
-          //  if (GameManager.instance.gold >= 500)
-          //  {
-          //      GameManager.instance.gold -= 500;
-          //      cart = cartLevel2;
-          //      cartCostText.text = "충차를 강화합니다.\n 비용 : 1000";
-          //  }
+        Debug.Log("실행됐음");
+        // 현재 cart에 해당하는 ScriptableObject 찾기
+        CarObjectData cartData = carObjectDatas.Find(data => data.cartPrefab == cart);
+        Debug.Log(cartData.name);
+        // 이미 마지막 레벨이면 리턴
+        if (cartData == carObjectDatas[carObjectDatas.Count - 1]) return;
 
-            if (gameManager.gold >= 500)
-            {
-                gameManager.gold -= 500;
-                cart = cartLevel2;
-                cartCostText.text = "충차를 강화합니다.\n 비용 : 1000";
-            }
-        }
-        else if (cart == cartLevel2)
+        // 업그레이드 가능하면
+        if (gameManager.gold >= cartData.upgradeCost)
         {
-           // if (GameManager.instance.gold >= 1000)
-           // {
-           //     GameManager.instance.gold -= 1000;
-           //     cart = cartLevel3;
-           //     cartCostText.text = "충차를 강화합니다.\n 비용 : 1500";
-           // }
-
-            if (gameManager.gold >= 1000)
-            {
-                gameManager.gold -= 1000;
-                cart = cartLevel3;
-                cartCostText.text = "충차를 강화합니다.\n 비용 : 1500";
-            }
+            gameManager.gold -= cartData.upgradeCost;
+            // 다음 레벨 데이터 가져오기
+            CarObjectData nextData = carObjectDatas[cartData.cartLevel];
+            cart = nextData.cartPrefab;
+            cartCostText.text = $"충차를 강화합니다.\n 비용 : {nextData.upgradeCost}";
         }
     }
 
@@ -80,8 +80,6 @@ public class CartSpawner : MonoBehaviour
     {
         if (makedCart != null)
         {
-            //Todo : 텍스트 구현
-            Debug.Log("이미 충차가 있습니다.");
             StopCoroutine("MakeCart");
         }
 
@@ -100,11 +98,15 @@ public class CartSpawner : MonoBehaviour
             rigid.velocity = Vector3.down * 10f;
             rigid.AddForce(rigid.velocity, ForceMode.Impulse);
 
-            if (cartOnCo == null)
-            {
-                StartCoroutine(CartOnRoutine(makedCart));
-            }
+            StartCoroutine(DelayCoroutine());
+
         }
+    }
+
+    IEnumerator DelayCoroutine()
+    {
+        yield return new WaitForSeconds(1f);
+        makedCart.GetComponent<CartMover>().enabled = true;
     }
 
     /// <summary>
@@ -119,8 +121,6 @@ public class CartSpawner : MonoBehaviour
 
         if (makedCart != null)
         {
-            //Todo : 텍스트 구현
-            Debug.Log("이미 충차가 있습니다.");
             StopCoroutine("CartMakeBarRoutine");
         }
 
@@ -136,26 +136,7 @@ public class CartSpawner : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 카트가 낙하하면 스크립트 켜주는 코루틴
-    /// </summary>
-    /// <param name="makedCart">생성된 카트</param>
-    /// <returns></returns>
-    IEnumerator CartOnRoutine(GameObject makedCart)
-    {
-        yield return new WaitForSeconds(1f);
-        if (makedCart.GetComponent<CartLevel1>() != null)
-            makedCart.GetComponent<CartLevel1>().enabled = true;
-
-        if (makedCart.GetComponent<CartLevel2>() != null)
-            makedCart.GetComponent<CartLevel2>().enabled = true;
-
-        if (makedCart.GetComponent<CartLevel3>() != null)
-            makedCart.GetComponent<CartLevel3>().enabled = true;
-
-        cartOnCo = null;
-
-    }
+   
 
     void Init()
     {

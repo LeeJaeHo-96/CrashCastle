@@ -107,7 +107,6 @@ public class MainUI : BaseUI
 
     void RankingButton()
     {
-        Debug.Log("·©Å· Å¬¸¯´ï");
         rankingCanvas.gameObject.SetActive(true);
         mainCanvas.gameObject.SetActive(false);
     }

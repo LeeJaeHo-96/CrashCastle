@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 245766619584107074}
   - component: {fileID: 245766619574533560}
-  - component: {fileID: 3108845583568795422}
   - component: {fileID: 2313108186271311571}
   - component: {fileID: 2727109246272670408}
+  - component: {fileID: -3842609618037098456}
   m_Layer: 3
   m_Name: RamLv1
   m_TagString: Player
@@ -58,22 +58,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &3108845583568795422
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 245766619583876706}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea12cdd7538440b4086b2b874ece4563, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 0
-  cartHP: 0
-  cartAttack: 0
-  cartArmor: 0
 --- !u!54 &2313108186271311571
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -103,6 +87,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2, y: 2, z: 3}
   m_Center: {x: 0, y: 1, z: 0.2}
+--- !u!114 &-3842609618037098456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 245766619583876706}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1282bbb809a45634bbf0dab308553239, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 0
+  CarObjectData: {fileID: 11400000, guid: 4fa4b4ea112c11d418400e4a2c420837, type: 2}
+  cartHP: 0
+  cartAttack: 0
 --- !u!1 &245766619583876712
 GameObject:
   m_ObjectHideFlags: 0

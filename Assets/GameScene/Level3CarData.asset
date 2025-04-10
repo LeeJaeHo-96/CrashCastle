@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78b5661bc3e5f3846b2e8e90ecdc5eb4, type: 3}
+  m_Name: Level3CarData
+  m_EditorClassIdentifier: 
+  cartPrefab: {fileID: 5546294887355966664, guid: 4f074f0a522a5aa45a5d30b93996706c, type: 3}
+  cartLevel: 3
+  cartHp: 5
+  cartAttack: 3
+  reCharging: 2
+  upgradeCost: 1000000

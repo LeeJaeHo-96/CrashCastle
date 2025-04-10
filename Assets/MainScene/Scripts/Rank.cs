@@ -24,6 +24,7 @@ public class Rank : BaseUI
     private void OnEnable()
     {
         firebaseManager.LoadLeaderboard(rankList);
+        //firebaseManager.RankReset(rankList);
     }
 
     void Update()
