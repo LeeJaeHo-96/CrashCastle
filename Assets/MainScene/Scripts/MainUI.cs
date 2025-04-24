@@ -124,6 +124,9 @@ public class MainUI : BaseUI
 
     void Init()
     {
+        setting.GetComponent<Setting>().OptionLoad();
+
+
         gameButton = GetUI<Button>("gameButton");
         keyButton = GetUI<Button>("keyButton");
         optionButton = GetUI<Button>("optionButton");

@@ -71,8 +71,16 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 /Assets/Imports
+<<<<<<< Updated upstream
 /Assets/Firebase
 /Assets/Editor Default Resources
 /Assets/ExternalDependencyManager
 /Assets/Plugins
 /Assets/StreamingAssets
+=======
+/Assets/Editor Default Resources
+/Assets/Firebase
+/Assets/Plugins
+/Assets/StreamingAssets
+/Assets/ExternalDependencyManager
+>>>>>>> Stashed changes

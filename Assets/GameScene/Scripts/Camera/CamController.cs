@@ -6,6 +6,10 @@ using UnityEngine.UI;
 
 public class CamController : MonoBehaviour
 {
+    [SerializeField] GameObject mainCam;
+    Camera _mainCam;
+    [SerializeField] GameObject subCam;
+
     [SerializeField] GameObject camCart;
     Vector3 camPos;
 
@@ -82,12 +86,16 @@ public class CamController : MonoBehaviour
     {
         if(!inputChange)
         {
-            Camera.main.depth = 2;
+            _mainCam.depth = 2;
         }
         else if(inputChange)
         {
-            Camera.main.depth = 0;
+            _mainCam.depth = 0;
         }
+
+        _mainCam.enabled = !inputChange;
+        subCam.SetActive(inputChange);
+
         makeButton.gameObject.SetActive(!inputChange);
         upButton.gameObject.SetActive(!inputChange);
     }
@@ -118,6 +126,8 @@ public class CamController : MonoBehaviour
 
     void Init()
     {
+        _mainCam = mainCam.GetComponent<Camera>();
+
         Camera.main.transform.position = camCart.transform.position;
         inputAction = camCart.GetComponent<PlayerInput>();
 

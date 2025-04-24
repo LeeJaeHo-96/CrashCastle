@@ -36,23 +36,6 @@ public class CartSpawner : MonoBehaviour
     /// <summary>
     /// 버튼용 _ 카트 업그레이드
     /// </summary>
-    public void CartUpgrade1()
-    {
-        //최종 레벨일 경우 리턴시킴
-        if (cart == carObjectDatas[carObjectDatas.Count - 1]) return;
-        
-        CarObjectData cartData1 = cart.GetComponent<CarObjectData>();
-        CarObjectData cartData = carObjectDatas[0];
-        
-        //보유 골드가 카트의 업그레이드 비용 이상일 때
-        if (gameManager.gold >= cartData.upgradeCost)
-        {
-            gameManager.gold -= cartData.upgradeCost;
-            cart = carObjectDatas[cartData.cartLevel].cartPrefab;
-            cartCostText.text = $"충차를 강화합니다.\n 비용 : {cart.GetComponent<CarObjectData>().upgradeCost}";
-        }
-    }
-
     public void CartUpgrade()
     {
         Debug.Log("실행됐음");

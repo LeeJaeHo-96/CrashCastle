@@ -2687,9 +2687,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4fa4b4ea112c11d418400e4a2c420837, type: 2}
   - {fileID: 11400000, guid: 2f824e0b062773c44ae2d01b48b92ee6, type: 2}
   - {fileID: 11400000, guid: a10e199b74ee5f64289c4fb7a24a3d87, type: 2}
-  cartLevel1: {fileID: 245766619583876706, guid: 0488650d4a7370f4d8d415af02a0211d, type: 3}
-  cartLevel2: {fileID: 3293027057698688732, guid: 9c452b13071b8c9419cdaf042aaa9681, type: 3}
-  cartLevel3: {fileID: 5546294887355966664, guid: 4f074f0a522a5aa45a5d30b93996706c, type: 3}
   cartMakeBar: {fileID: 1219952712}
   makedButton: {fileID: 1844422752}
   cart: {fileID: 245766619583876706, guid: 0488650d4a7370f4d8d415af02a0211d, type: 3}
@@ -10052,6 +10049,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ab117dc3dc7943498032d9d985068ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCam: {fileID: 1212378321}
+  subCam: {fileID: 1272430294}
   camCart: {fileID: 1212378321}
   left: {fileID: 726032696}
   right: {fileID: 1189643223}
